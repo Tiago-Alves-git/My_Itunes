@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Load from './loading';
 
@@ -32,6 +33,11 @@ class Header extends React.Component {
         <header data-testid="header-component" className="Header">
           <div>
             <img src={ url } alt="Imagem Logo" width="300px" height="300px" />
+            <div>
+              <Link to="/search" data-testid="link-to-search"> Busca </Link>
+              <Link to="/favorites" data-testid="link-to-favorites"> Favoritos </Link>
+              <Link to="/profile" data-testid="link-to-profile"> Perfil </Link>
+            </div>
           </div>
           <div>
             Tiago Tunes!
