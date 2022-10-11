@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../Componentes/header';
 import Load from '../Componentes/loading';
 import getMusics from '../services/musicsAPI';
@@ -36,63 +35,50 @@ class Album extends React.Component {
               <Header />
               <p>TrybeTunes Album</p>
               <div>
-                <ul>
-                  { musics.map((musicas) => (
-                    <li
-                      key={ musicas.trackId }
-                      data-testid="album-name"
-                    >
-                      { musicas.wrapperType === 'collection' ? (
-                        <>
-                          <p>
-                            {musicas.artistName}
-                          </p>
-                          <img
-                            key={ musicas.artistName }
-                            src={ musicas.artworkUrl100 }
-                            alt={ musicas.artistId }
-                          />
 
-                        </>
-                      ) : (
-                        <>
+                <p data-testid="artist-name">
+                  {' '}
+                  {musics[0].artistName}
+                </p>
+                <p data-testid="album-name">
+                  Album :
+                  {' '}
+                  {musics[0].collectionName}
+                </p>
+                <img
+                  src={ musics[0].artworkUrl100 }
+                  alt={ musics[0].artistId }
+                />
+                <ul>
+                  { musics.filter((album, index) => index > 0)
+                    .map((musicas) => (
+
+                      <li
+                        key={ musicas.trackId }
+                      >
+                        <div>
+                          {' '}
+                          {musicas.artistName}
                           <p>
-                            {' '}
-                            {musicas.artistName}
-                            <br />
-                            SongTitle :
                             {' '}
                             {musicas.trackName}
                           </p>
-                          <img
-                            key={ musicas.artistName }
-                            src={ musicas.artworkUrl100 }
-                            alt={ musicas.artistId }
-                          />
-                          <audio
-                            data-testid="audio-component"
-                            src="{previewUrl}"
-                            controls
-                          >
-                            <track kind="captions" />
-                            O seu navegador não suporta o elemento
-                            {' '}
-                            {' '}
-                            <code>audio</code>
-                            .
-                          </audio>
+                        </div>
+                        <img
+                          src={ musicas.artworkUrl100 }
+                          alt={ musicas.artistId }
+                        />
+                        <audio data-testid="audio-component" src="{previewUrl}" controls>
+                          <track kind="captions" />
+                          O seu navegador não suporta o elemento
+                          {' '}
+                          {' '}
+                          <code>audio</code>
+                          .
+                        </audio>
+                      </li>
 
-                        </>
-                      ) }
-
-                      <p>
-                        {musicas.collectionName}
-                      </p>
-                      <Link to={ `/album/${musicas.collectionId}` }>
-                        Favorite
-                      </Link>
-                    </li>
-                  )) }
+                    )) }
                 </ul>
               </div>
 
