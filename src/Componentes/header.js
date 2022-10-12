@@ -7,7 +7,7 @@ import Load from './loading';
 class Header extends React.Component {
   state = {
     name: '',
-    loading: false,
+    loading: true,
   };
 
   componentDidMount() {
@@ -15,9 +15,6 @@ class Header extends React.Component {
   }
 
   handleUserName = async () => {
-    this.setState({
-      loading: true,
-    });
     const { name } = await getUser();
     this.setState({
       name,
