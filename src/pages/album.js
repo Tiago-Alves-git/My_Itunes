@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '../Componentes/header';
 import Load from '../Componentes/loading';
 import getMusics from '../services/musicsAPI';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   state = {
@@ -12,17 +12,19 @@ class Album extends React.Component {
     favoritas: {},
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.handleSongs();
   }
 
   handleSongs = async () => {
     const { match } = this.props;
     const request = await getMusics(match.params.id);
-    console.log(request);
+    const teste = await getFavoriteSongs();
+    console.log(teste);
     this.setState({
       musics: request,
       loading: false,
+      favoritas: teste,
     });
   };
 
@@ -36,8 +38,9 @@ class Album extends React.Component {
     });
     const { favoritas } = this.state;
     this.setState(({
-      favoritas: { ...favoritas, [event.target.name]: event.target.checked },
+      favoritas: [...favoritas, musicas],
     }));
+    console.log(favoritas);
   };
 
   render() {
@@ -97,8 +100,11 @@ class Album extends React.Component {
                             data-testid={ `checkbox-music-${musicas.trackId}` }
                             type="checkbox"
                             name={ `favorite-track-${musicas.trackId}` }
-                            id={ `favorite-track-${musicas.trackId}` }
-                            checked={ favoritas[`favorite-track-${musicas.trackId}`] }
+                            id={ musicas.trackId }
+                            checked={
+                              favoritas.some((is) => is.trackId
+                              === musicas.trackId)
+                            }
                             onChange={ (e) => this.handleFavoriteCheck(e, musicas) }
                           />
                           Favorita
