@@ -17,8 +17,64 @@ code {
   display: flex;
   justify-content: center;
 }
-.Header {
+.Header a {
+  color:  whitesmoke;
+  /* display: flex; */
+  padding: 8px;
+  text-decoration: none;
+}
+
+.headerItems{
   align-items: center;
   display: flex;
-  gap: 25%;
+  flex: 1;
+  justify-content: center;
+}
+
+.Header{
+  background-color: black;
+  color: whitesmoke;
+  display: flex;
+  height: 75px;
+}
+
+.Header h1 {
+  text-align: center;
+  margin: 5px 0 0 0;
+}
+
+.searchBar{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.albumsContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.albumsCards{
+  background-color: whitesmoke;
+  box-shadow: 10px 5px 15px black ;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  margin: 0px 15px 15px 15px;
+  text-align: center;
+}
+
+.searchedContainer{
+  text-align: center;
+}
+
+.imageLogo{
+  border-radius: 50%;
+  width: 70px !important;
+  height: 70px !important;
+  object-fit: cover;
 }

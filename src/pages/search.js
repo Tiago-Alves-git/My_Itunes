@@ -50,49 +50,52 @@ class Search extends React.Component {
           : (
             <>
               <Header />
-              <p>TrybeTunes Search</p>
-              <form>
-                <label htmlFor="Artist">
-                  <input
-                    type="text"
-                    name="artistName"
-                    placeholder="Digite Aqui o nome do Artista"
-                    id="Artist"
-                    value={ artistName }
-                    onChange={ this.handleArtistName }
-                    data-testid="search-artist-input"
-                  />
-                </label>
-                {artistName.length >= numeroMinimo ? (
-                  <button
-                    type="button"
-                    onClick={ this.handleClick }
-                    data-testid="search-artist-button"
-                  >
-                    Pesquisar
-                  </button>)
-                  : (
+              <div className="searchBar">
+                <p>TrybeTunes Search</p>
+                <form>
+                  <label htmlFor="Artist">
+                    <input
+                      type="text"
+                      name="artistName"
+                      placeholder="Digite Aqui o nome do Artista"
+                      id="Artist"
+                      value={ artistName }
+                      onChange={ this.handleArtistName }
+                      data-testid="search-artist-input"
+                    />
+                  </label>
+                  {artistName.length >= numeroMinimo ? (
                     <button
-                      disabled
                       type="button"
                       onClick={ this.handleClick }
                       data-testid="search-artist-button"
                     >
                       Pesquisar
-                    </button>)}
-              </form>
+                    </button>)
+                    : (
+                      <button
+                        disabled
+                        type="button"
+                        onClick={ this.handleClick }
+                        data-testid="search-artist-button"
+                      >
+                        Pesquisar
+                      </button>)}
+                </form>
+
+              </div>
               { searched && searched.length > 0 ? (
-                <>
+                <div className="searchedContainer">
                   <p>
                     {' '}
                     {`Resultado de álbuns de: ${searchedArtist}`}
                     {' '}
                   </p>
-                  <div>
+                  <div className="albumsContainer">
                     { searched.map((album) => (
                       <div
                         key={ album.collectionId }
-
+                        className="albumsCards"
                       >
                         <p>
                           {album.artistName}
@@ -115,7 +118,7 @@ class Search extends React.Component {
                     )) }
                   </div>
 
-                </>
+                </div>
               ) : searched && (
 
                 <p>
