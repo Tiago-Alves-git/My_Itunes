@@ -1,0 +1,6 @@
+.Header {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  justify-content: space-evenly;
+}
