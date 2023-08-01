@@ -1,0 +1,13 @@
+.CardBoxes {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  grid-auto-rows: 200px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 80px 50px;
+  overflow-x: auto;
+}
+
+.CardBoxes::-webkit-scrollbar {
+  width: 0;
+}

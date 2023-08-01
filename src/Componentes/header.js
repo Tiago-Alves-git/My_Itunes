@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Avatar, Box, Divider, IconButton, Input, ListItemIcon, Menu,
+import { Avatar, Box, Button, Divider, IconButton, Input, ListItemIcon, Menu,
   MenuItem, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -14,6 +14,7 @@ class Header extends React.Component {
     name: '',
     loading: true,
     anchorEl: null,
+    search: '',
   };
 
   componentDidMount() {
@@ -34,7 +35,6 @@ class Header extends React.Component {
       ...prev,
       anchorEl: event.target,
     }));
-    console.log(this.state);
   };
 
   handleClose = () => {
@@ -44,9 +44,23 @@ class Header extends React.Component {
     }));
   };
 
+  handleSearch = (evt) => {
+    const { value } = evt.target;
+    this.setState((prev) => ({
+      ...prev,
+      search: value,
+    }));
+  };
+
+  handleSubmit = () => {
+    const { onSubmit } = this.props;
+    const { search } = this.state;
+    onSubmit(search);
+  };
+
   render() {
     // const url = image;
-    const { name, loading, anchorEl } = this.state;
+    const { name, loading, anchorEl, search } = this.state;
     const open = Boolean(anchorEl);
     return (
       loading ? <Load /> : (
@@ -113,23 +127,27 @@ class Header extends React.Component {
               width: '25em',
             } }
           >
-            <SearchIcon
-              sx={ {
-                height: '100%',
-                position: 'relative',
-                left: '15em',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'black',
-              } }
-            />
             <Input
               type="text"
               placeholder="Search..."
               inputProps={ { 'aria-label': 'search' } }
               sx={ { width: '100%', marginRight: '20px' } }
+              value={ search }
+              onChange={ this.handleSearch }
             />
+            <Button
+              onClick={ this.handleSubmit }
+              aria-label="search-button"
+              sx={ {
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'black',
+              } }
+            >
+              <SearchIcon />
+            </Button>
           </div>
           <div style={ { color: 'black' } }>
             { name }
