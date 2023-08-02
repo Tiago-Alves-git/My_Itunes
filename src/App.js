@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Album from './pages/album';
 import ProfileEdit from './pages/editProfile';
 import Favorites from './pages/favoritas';
-import Home from './pages/home';
 import Profile from './pages/profile';
-import Search from './pages/search';
 import NotFound from './pages/notFound';
 import { createUser } from './services/userAPI';
+import Login from './pages/login';
+import Home from './pages/home';
 
 class App extends React.Component {
   state = {
@@ -52,9 +52,9 @@ class App extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {logged ? <Redirect to="/search" />
+            {logged ? <Redirect to="/home" />
               : (
-                <Home
+                <Login
                   userName={ userName }
                   password={ password }
                   email={ email }
@@ -65,7 +65,7 @@ class App extends React.Component {
                 />
               )}
           </Route>
-          <Route path="/search" component={ Search } />
+          <Route path="/home" component={ Home } />
           <Route path="/album/:id" component={ Album } />
           <Route path="/favorites" component={ Favorites } />
           <Route exact path="/profile" component={ Profile } />

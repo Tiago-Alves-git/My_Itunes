@@ -1,34 +1,18 @@
 const searchAlbumsAPI = async (artist) => {
-  const artistNameURL = encodeURI(artist).replaceAll('%20', '+');
+  const url = `https://deezerdevs-deezer.p.rapidapi.com/search?q=${artist}`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '3708b5aa00mshc76bd27858be4bep19c422jsn6747d8087d55',
+      'X-RapidAPI-Host': 'deezerdevs-deezer.p.rapidapi.com',
+    },
+  };
 
-  const getAlbumsAPI = `https://itunes.apple.com/search?entity=album&term=${artistNameURL}&attribute=allArtistTerm`;
+  const APIResponse = await fetch(url, options);
 
-  const APIResponse = await fetch(getAlbumsAPI);
+  const results = await APIResponse.json();
 
-  const { results } = await APIResponse.json();
-
-  const response = results.map(
-    ({
-      artistId,
-      artistName,
-      collectionId,
-      collectionName,
-      collectionPrice,
-      artworkUrl100,
-      releaseDate,
-      trackCount,
-    }) => ({
-      artistId,
-      artistName,
-      collectionId,
-      collectionName,
-      collectionPrice,
-      artworkUrl100,
-      releaseDate,
-      trackCount,
-    }),
-  );
-  return response;
+  return results;
 };
 
 export default searchAlbumsAPI;
