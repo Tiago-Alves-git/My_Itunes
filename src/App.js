@@ -11,9 +11,9 @@ import { createUser } from './services/userAPI';
 
 class App extends React.Component {
   state = {
-    usuario: '',
+    userName: '',
     email: '',
-    // senha:'',
+    password: '',
     logged: false,
     loading: false,
     // signUp: [],
@@ -28,11 +28,11 @@ class App extends React.Component {
   };
 
   handleClick = () => {
-    const { usuario, email } = this.state;
+    const { userName, email } = this.state;
 
     const create = () => {
       createUser({
-        name: usuario,
+        name: userName,
         email,
       }).then(() => {
         this.setState({
@@ -47,7 +47,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { usuario, loading, logged } = this.state;
+    const { userName, loading, logged, password, email } = this.state;
     return (
       <BrowserRouter>
         <Switch>
@@ -55,7 +55,9 @@ class App extends React.Component {
             {logged ? <Redirect to="/search" />
               : (
                 <Home
-                  usuario={ usuario }
+                  userName={ userName }
+                  password={ password }
+                  email={ email }
                   handleUserChange={ this.handleUserChange }
                   handleClick={ this.handleClick }
                   loading={ loading }

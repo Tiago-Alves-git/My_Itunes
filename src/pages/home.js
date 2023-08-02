@@ -1,65 +1,105 @@
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
 import React from 'react';
-import Load from '../Componentes/loading';
+import { AiOutlineUser } from 'react-icons/ai';
+import { MdOutlineAlternateEmail, MdPassword } from 'react-icons/md';
+import '../styles/home.css';
+import { Button, FormControl, IconButton, InputAdornment,
+  InputLabel, OutlinedInput } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-class Home extends React.Component {
-  render() {
-    const numeroMinimo = 3;
-    const { usuario, handleUserChange, handleClick, loading } = this.props;
-    return (
-      loading ? <Load /> : (
-        <div data-testid="page-login">
-          <p>TrybeTunes Home</p>
-          <form>
-            <label htmlFor="Name">
-              Insira aqui o seu nome:
-              <input
-                data-testid="login-name-input"
-                type="text"
-                name="usuario"
-                id="Name"
-                value={ usuario }
-                onChange={ handleUserChange }
-              />
-            </label>
-            <label htmlFor="Email">
-              Insira aqui o seu Email:
-              <input
-                type="text"
-                name="Email"
-                id="Email"
-                onChange={ () => { console.log('Meu Email está sendo digitado'); } }
-              />
-            </label>
-            { usuario.length >= numeroMinimo ? (
-              <button
-                type="button"
-                onClick={ handleClick }
-                data-testid="login-submit-button"
-              >
-                Entrar
-              </button>)
-              : (
-                <button
-                  disabled
-                  type="button"
-                  onClick={ handleClick }
-                  data-testid="login-submit-button"
+export default function Home(props) {
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const { password, email, userName, handleUserChange, handleClick } = props;
+
+  return (
+    <div className="android-small">
+      <div className="LoginUserIcon">
+        <AiOutlineUser style={ { width: '2em', height: '2em' } } />
+      </div>
+      <div className="LoginInputs">
+        <FormControl variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-email">
+            Email
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-email"
+            startAdornment={
+              <InputAdornment position="start">
+                <MdOutlineAlternateEmail />
+              </InputAdornment>
+            }
+            label="Email"
+            name="email"
+            value={ email }
+            onChange={ handleUserChange }
+          />
+        </FormControl>
+        <FormControl variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-name">
+            UserName
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-name"
+            startAdornment={
+              <InputAdornment position="start">
+                <AiOutlineUser />
+              </InputAdornment>
+            }
+            label="UserName"
+            name="userName"
+            value={ userName }
+            onChange={ handleUserChange }
+          />
+        </FormControl>
+        <FormControl variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={ showPassword ? 'text' : 'password' }
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={ handleClickShowPassword }
+                  onMouseDown={ handleMouseDownPassword }
+                  edge="end"
                 >
-                  Entrar
-                </button>) }
-          </form>
-
-        </div>
-      ));
-  }
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            startAdornment={
+              <InputAdornment position="start">
+                <MdPassword />
+              </InputAdornment>
+            }
+            label="Password"
+            name="password"
+            onChange={ handleUserChange }
+            value={ password }
+          />
+        </FormControl>
+      </div>
+      <div className="LoginButtonSubmit">
+        <Button
+          sx={ {
+            textDecoration: 'none',
+            textEmphasis: 'Highlight',
+            color: 'black',
+          } }
+          onClick={ handleClick }
+        >
+          Login
+        </Button>
+      </div>
+    </div>
+  );
 }
-
-Home.propTypes = {
-  handleUserChange: PropTypes.func,
-  usuario: PropTypes.shape({
-    length: PropTypes.number,
-  }),
-}.isRequired;
-
-export default Home;
