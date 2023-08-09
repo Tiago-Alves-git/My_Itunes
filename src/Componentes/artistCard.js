@@ -5,12 +5,10 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import '../styles/search.css';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import Load from './loading';
 
 export default function MediaControlCard(props) {
-  const { searched } = props;
+  const { searched, default_ } = props;
 
-  console.log(searched);
   return (
     <div className="CardBoxes">
       { searched
@@ -20,7 +18,8 @@ export default function MediaControlCard(props) {
             size="sm"
             key={ musics.id }
             variant="outlined"
-            sx={ { minHeight: 200, minWidth: 500 } }
+            className="cardBox"
+            sx={ { minHeight: 200, minWidth: 300 } }
           >
             <Typography level="subtitle-md">
               { musics.artist.name }
@@ -38,17 +37,31 @@ export default function MediaControlCard(props) {
             </Box>
           </Card>
         ))
-        : (
-          <div
-            style={ { display: 'flex',
-              flexGrow: '1',
-              alignSelf: 'center',
-              flexDirection: 'column' } }
+        : default_.map((musicas) => (
+          <Card
+            orientation="horizontal"
+            size="sm"
+            key={ musicas.id }
+            variant="outlined"
+            className="cardBox"
+            sx={ { minHeight: 200, minWidth: 300 } }
           >
-            <h3> Pesquise o nome de um artista para começar </h3>
-            <Load />
-          </div>
-        ) }
+            <Typography level="subtitle-md">
+              { musicas.artist.name }
+            </Typography>
+            <img
+              style={ { minWidth: 250, minHeight: 100 } }
+              src={ `${musicas.album.cover}?h=120&fit=crop&auto=format` }
+              alt={ musicas.title }
+            />
+            <Box sx={ { whiteSpace: 'nowrap', mx: 1 } }>
+              <Typography level="title-md">{musicas.title}</Typography>
+              <Link to={ `/album/${musicas.album.id}` }>
+                <Typography level="body-sm">{musicas.album.title}</Typography>
+              </Link>
+            </Box>
+          </Card>
+        )) }
     </div>
   );
 }

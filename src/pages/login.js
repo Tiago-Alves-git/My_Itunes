@@ -7,6 +7,7 @@ import { Button, FormControl, IconButton, InputAdornment,
   InputLabel, OutlinedInput } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function Login(props) {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -89,16 +90,18 @@ export default function Login(props) {
         </FormControl>
       </div>
       <div className="LoginButtonSubmit">
-        <Button
-          sx={ {
-            textDecoration: 'none',
-            textEmphasis: 'Highlight',
-            color: 'black',
-          } }
-          onClick={ handleClick }
-        >
-          Login
-        </Button>
+        <Link to="/">
+          <Button
+            sx={ {
+              textDecoration: 'none',
+              textEmphasis: 'Highlight',
+              color: 'black',
+            } }
+            onClick={ handleClick }
+          >
+            Login
+          </Button>
+        </Link>
       </div>
     </div>
   );

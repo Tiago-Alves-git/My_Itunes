@@ -39,3 +39,12 @@
   width: 10em;
 }
 
+.Search {
+  height: 100%;
+}
+
+.BottomNav {
+  bottom: 10px;
+  position: fixed;
+}
+

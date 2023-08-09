@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Album from './pages/album';
 import ProfileEdit from './pages/editProfile';
 import Favorites from './pages/favoritas';
@@ -44,6 +44,14 @@ class App extends React.Component {
     this.setState({
       loading: true,
     }, create);
+    History.push('/');
+  };
+
+  handleLogout = () => {
+    localStorage.removeItem('user');
+    this.setState({
+      logged: false,
+    });
   };
 
   render() {
@@ -51,21 +59,22 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
-            {logged ? <Redirect to="/home" />
-              : (
-                <Login
-                  userName={ userName }
-                  password={ password }
-                  email={ email }
-                  handleUserChange={ this.handleUserChange }
-                  handleClick={ this.handleClick }
-                  loading={ loading }
-
-                />
-              )}
+          <Route path="/login">
+            <Login
+              userName={ userName }
+              password={ password }
+              email={ email }
+              handleUserChange={ this.handleUserChange }
+              handleClick={ this.handleClick }
+              loading={ loading }
+            />
           </Route>
-          <Route path="/home" component={ Home } />
+          <Route path="/">
+            <Home
+              handleLogout={ this.handleLogout }
+              logged={ logged }
+            />
+          </Route>
           <Route path="/album/:id" component={ Album } />
           <Route path="/favorites" component={ Favorites } />
           <Route exact path="/profile" component={ Profile } />

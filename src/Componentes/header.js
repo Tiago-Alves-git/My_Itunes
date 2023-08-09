@@ -4,10 +4,11 @@ import { Avatar, Box, Button, Divider, IconButton, Input, ListItemIcon, Menu,
   MenuItem, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Logout, PersonAdd, Settings } from '@mui/icons-material';
+import { Logout, Settings } from '@mui/icons-material';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { getUser } from '../services/userAPI';
-import Load from './loading';
 import '../styles/header.css';
+import Load from './loading';
 
 class Header extends React.Component {
   state = {
@@ -27,6 +28,7 @@ class Header extends React.Component {
       ...prev,
       name,
       loading: false,
+      logged: true,
     }));
   };
 
@@ -61,9 +63,12 @@ class Header extends React.Component {
   render() {
     // const url = image;
     const { name, loading, anchorEl, search } = this.state;
+    const { handleLogout, logged } = this.props;
     const open = Boolean(anchorEl);
     return (
-      loading ? <Load /> : (
+      loading ? (
+        <Load />
+      ) : (
         <div className="Header">
           <Box sx={ { display: 'flex', alignItems: 'center', textAlign: 'center' } }>
             <Tooltip title="Account settings">
@@ -88,30 +93,28 @@ class Header extends React.Component {
             transformOrigin={ { horizontal: 'right', vertical: 'top' } }
             anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
           >
-            <MenuItem onClick={ this.handleClose }>
-              <Avatar />
-              {' '}
-              Profile
-            </MenuItem>
-            <MenuItem onClick={ this.handleClose }>
-              <Avatar />
-              {' '}
-              My account
-            </MenuItem>
+            <Link to="/profile" style={ { textDecoration: 'none', color: 'black' } }>
+              <MenuItem onClick={ this.handleClose }>
+                <Avatar />
+                {' '}
+                Profile
+              </MenuItem>
+            </Link>
+            <Link to="/profile/edit" style={ { textDecoration: 'none', color: 'black' } }>
+              <MenuItem onClick={ this.handleClose }>
+                <Avatar />
+                {' '}
+                Edit Profile
+              </MenuItem>
+            </Link>
             <Divider />
-            <MenuItem onClick={ this.handleClose }>
-              <ListItemIcon>
-                <PersonAdd fontSize="small" />
-              </ListItemIcon>
-              Add another account
-            </MenuItem>
             <MenuItem onClick={ this.handleClose }>
               <ListItemIcon>
                 <Settings fontSize="small" />
               </ListItemIcon>
               Settings
             </MenuItem>
-            <MenuItem onClick={ this.handleClose }>
+            <MenuItem onClick={ handleLogout }>
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
@@ -149,12 +152,20 @@ class Header extends React.Component {
               <SearchIcon />
             </Button>
           </div>
-          <div style={ { color: 'black' } }>
-            { name }
-          </div>
+          { logged ? (
+            <div style={ { color: 'black' } }>
+              { name }
+            </div>
+          ) : (
+            <Link to="/login" style={ { display: 'flex' } }>
+              {' '}
+              <Avatar />
+              <Button sx={ { color: 'black' } }> Login </Button>
+              {' '}
+            </Link>
+          ) }
         </div>
       )
-
     );
   }
 }

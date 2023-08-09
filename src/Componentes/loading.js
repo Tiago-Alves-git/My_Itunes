@@ -4,7 +4,7 @@ class Load extends React.Component {
   render() {
     return (
       <h2 style={ { } }>
-        Carregando...
+        Carregando...!
       </h2>
     );
   }

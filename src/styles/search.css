@@ -4,10 +4,17 @@
   gap: 10px;
   grid-auto-rows: 200px;
   grid-template-columns: repeat(3, 1fr);
-  margin: 80px 50px;
+  margin: 50px;
   overflow-x: auto;
 }
 
 .CardBoxes::-webkit-scrollbar {
   width: 0;
+}
+
+.cardBox {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
