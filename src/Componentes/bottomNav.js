@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -7,17 +8,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-export default function SimpleBottomNavigation() {
+export default function SimpleBottomNavigation(props) {
   const [value, setValue] = React.useState(0);
-  const [theme, setTheme] = React.useState('light');
 
-  const handleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  };
+  const { handleTheme, theme } = props;
 
   return (
     <Box sx={ { width: '100%' } } className="BottomNav">
@@ -47,3 +41,7 @@ export default function SimpleBottomNavigation() {
     </Box>
   );
 }
+
+SimpleBottomNavigation.propTypes = {
+  handleTheme: PropTypes.any,
+}.isRequired;

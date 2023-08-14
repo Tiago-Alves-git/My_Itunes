@@ -17,6 +17,20 @@ class App extends React.Component {
     logged: false,
     loading: false,
     // signUp: [],
+    theme: 'light',
+  };
+
+  handleTheme = () => {
+    const { theme } = this.state;
+    if (theme === 'light') {
+      this.setState({
+        theme: 'dark',
+      });
+    } else {
+      this.setState({
+        theme: 'light',
+      });
+    }
   };
 
   handleUserChange = ({ target }) => {
@@ -55,7 +69,7 @@ class App extends React.Component {
   };
 
   render() {
-    const { userName, loading, logged, password, email } = this.state;
+    const { userName, loading, logged, password, email, theme } = this.state;
     return (
       <BrowserRouter>
         <Switch>
@@ -69,10 +83,12 @@ class App extends React.Component {
               loading={ loading }
             />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <Home
               handleLogout={ this.handleLogout }
               logged={ logged }
+              theme={ theme }
+              handleTheme={ this.handleTheme }
             />
           </Route>
           <Route path="/album/:id" component={ Album } />

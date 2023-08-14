@@ -59,23 +59,18 @@ class Home extends React.Component {
   render() {
     const { artistName, loading, searched, searchedArtist, default_,
       default2 } = this.state;
-    const { handleLogout, logged } = this.props;
+    const { handleLogout, logged, theme, handleTheme } = this.props;
     return (
       loading ? (
         <Load />
       ) : (
-        <div data-testid="page-search" className="Search">
+        <div className={ `Search${theme}` }>
           <div>
             <Header
               onSubmit={ this.handleClick }
               handleLogout={ handleLogout }
               logged={ logged }
-            />
-            <MediaControlCard2
-              artistName={ artistName }
-              searched={ searched }
-              default2={ default2 }
-              searchedArtist={ searchedArtist }
+              theme={ theme }
             />
             <MediaControlCard
               artistName={ artistName }
@@ -83,7 +78,16 @@ class Home extends React.Component {
               default_={ default_ }
               searchedArtist={ searchedArtist }
             />
-            <SimpleBottomNavigation />
+            <MediaControlCard2
+              artistName={ artistName }
+              searched={ searched }
+              default2={ default2 }
+              searchedArtist={ searchedArtist }
+            />
+            <SimpleBottomNavigation
+              handleTheme={ handleTheme }
+              theme={ theme }
+            />
           </div>
         </div>
       )

@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/cognitive-complexity */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Avatar, Box, Button, Divider, IconButton, Input, ListItemIcon, Menu,
@@ -61,15 +62,14 @@ class Header extends React.Component {
   };
 
   render() {
-    // const url = image;
     const { name, loading, anchorEl, search } = this.state;
-    const { handleLogout, logged } = this.props;
+    const { handleLogout, logged, theme } = this.props;
     const open = Boolean(anchorEl);
     return (
       loading ? (
         <Load />
       ) : (
-        <div className="Header">
+        <div className={ `Header${theme}` }>
           <Box sx={ { display: 'flex', alignItems: 'center', textAlign: 'center' } }>
             <Tooltip title="Account settings">
               <IconButton
@@ -80,7 +80,7 @@ class Header extends React.Component {
                 aria-haspopup="true"
                 aria-expanded={ open ? 'true' : undefined }
               >
-                <MenuIcon sx={ { color: 'black' } } />
+                <MenuIcon sx={ { color: theme === 'light' ? 'black' : 'white' } } />
               </IconButton>
             </Tooltip>
           </Box>
@@ -93,14 +93,19 @@ class Header extends React.Component {
             transformOrigin={ { horizontal: 'right', vertical: 'top' } }
             anchorOrigin={ { horizontal: 'right', vertical: 'bottom' } }
           >
-            <Link to="/profile" style={ { textDecoration: 'none', color: 'black' } }>
+            <Link
+              to="/profile"
+              style={ { textDecoration: 'none', color: 'black' } }
+            >
               <MenuItem onClick={ this.handleClose }>
                 <Avatar />
-                {' '}
                 Profile
               </MenuItem>
             </Link>
-            <Link to="/profile/edit" style={ { textDecoration: 'none', color: 'black' } }>
+            <Link
+              to="/profile/edit"
+              style={ { textDecoration: 'none', color: 'black' } }
+            >
               <MenuItem onClick={ this.handleClose }>
                 <Avatar />
                 {' '}
@@ -134,7 +139,7 @@ class Header extends React.Component {
               type="text"
               placeholder="Search..."
               inputProps={ { 'aria-label': 'search' } }
-              sx={ { width: '100%', marginRight: '20px' } }
+              sx={ { width: '100%', margin: '0px 20px' } }
               value={ search }
               onChange={ this.handleSearch }
             />
@@ -153,15 +158,19 @@ class Header extends React.Component {
             </Button>
           </div>
           { logged ? (
-            <div style={ { color: 'black' } }>
+            <div style={ { color: theme === 'light' ? 'black' : 'white' } }>
               { name }
             </div>
           ) : (
             <Link to="/login" style={ { display: 'flex' } }>
               {' '}
               <Avatar />
-              <Button sx={ { color: 'black' } }> Login </Button>
-              {' '}
+              <Button
+                sx={ {
+                  color: theme === 'light' ? 'black' : 'white' } }
+              >
+                Login
+              </Button>
             </Link>
           ) }
         </div>

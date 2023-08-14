@@ -1,6 +1,16 @@
-.Header {
+.Headerlight {
   align-items: center;
   background-color: white;
   display: flex;
   justify-content: space-evenly;
+  padding-top: 20px;
+}
+
+.Headerdark {
+  align-items: center;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 20px;
 }

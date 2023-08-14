@@ -39,7 +39,13 @@
   width: 10em;
 }
 
-.Search {
+.Searchlight {
+  height: 100%;
+}
+
+.Searchdark {
+  background-color: black;
+  color: white;
   height: 100%;
 }
 
